@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCM Studios — Contractor Card Register</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+<style>
+/* ── Base reset & CSS variables ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-success: #15803d;
+  --color-text-warning: #b45309;
+  --color-text-danger: #b91c1c;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f3f4f6;
+  --color-background-success: #dcfce7;
+  --color-background-warning: #fef3c7;
+  --color-background-danger: #fee2e2;
+  --color-border-primary: #111827;
+  --color-border-secondary: #d1d5db;
+  --color-border-tertiary: #e5e7eb;
+  --color-border-warning: #f59e0b;
+  --color-border-success: #22c55e;
+  --border-radius-lg: 8px;
+  --border-radius-md: 6px;
+  --font-mono: 'SF Mono', 'Monaco', ui-monospace, 'Cascadia Code', monospace;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #f9fafb;
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  font-size: 14px;
+}
+
+button {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: var(--border-radius-md);
+  border: 0.5px solid var(--color-border-secondary);
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+  padding: 6px 12px;
+}
+button:hover { background: var(--color-background-secondary); }
+input, textarea, select {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--color-text-primary);
+  border: 0.5px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-md);
+  padding: 6px 9px;
+  background: var(--color-background-primary);
+  width: 100%;
+}
+input:focus, textarea:focus, select:focus { outline: 1.5px solid var(--color-border-primary); }
+
+/* ── Site chrome ─────────────────────────────────────────────────────────── */
+#site-header {
+  background: #fff;
+  border-bottom: 0.5px solid var(--color-border-tertiary);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+#site-header h1 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+#site-header .sub {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin: 0 0 3px;
+}
+.sync-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sync-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #d1d5db;
+  flex-shrink: 0;
+}
+.sync-dot.ok { background: #22c55e; }
+.sync-dot.saving { background: #f59e0b; animation: blink .8s infinite; }
+.sync-dot.error { background: #ef4444; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+.sync-label { font-size: 12px; color: var(--color-text-secondary); }
+
+/* ── Setup overlay ───────────────────────────────────────────────────────── */
+#setup-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  z-index: 200;
+  align-items: center;
+  justify-content: center;
+}
+#setup-overlay.show { display: flex; }
+.setup-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 460px;
+  width: calc(100% - 32px);
+  box-shadow: 0 20px 48px rgba(0,0,0,.2);
+}
+.setup-card h2 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+.setup-card .setup-sub {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin: 0 0 20px;
+}
+.setup-steps {
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 14px 16px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+.setup-steps strong { color: var(--color-text-primary); }
+.setup-steps ol { margin: 6px 0 0 16px; }
+.setup-steps code {
+  font-family: var(--font-mono);
+  background: var(--color-border-tertiary);
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-size: 11px;
+}
+.setup-field { margin-bottom: 12px; }
+.setup-field label { display: block; font-size: 12px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 5px; }
+#setup-error {
+  background: var(--color-background-danger);
+  color: var(--color-text-danger);
+  border-radius: var(--border-radius-md);
+  padding: 9px 12px;
+  font-size: 12px;
+  margin-bottom: 12px;
+  display: none;
+}
+#setup-connect {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  background: #111827;
+  color: #fff;
+  border: none;
+  border-radius: var(--border-radius-md);
+}
+#setup-connect:hover { background: #1f2937; }
+#setup-connect:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ── Main app area ───────────────────────────────────────────────────────── */
+#app { display: none; padding: 24px; max-width: 960px; margin: 0 auto; }
+
+/* ── Tab bar ─────────────────────────────────────────────────────────────── */
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 8px 14px 10px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-radius: 0;
+  margin-bottom: -0.5px;
+}
+.tab-btn:hover { background: none; color: var(--color-text-primary); }
+.tab-btn.active { color: var(--color-text-primary); font-weight: 500; border-bottom-color: var(--color-text-primary); }
+
+/* ── Card tiles ──────────────────────────────────────────────────────────── */
+.c-tile {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 14px;
+}
+.c-tile.sel { border: 1.5px solid var(--color-border-primary); }
+.spill {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.fpanel {
+  background: var(--color-background-secondary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 20px;
+  margin-top: 16px;
+}
+.ltable { width: 100%; border-collapse: collapse; font-size: 13px; }
+.ltable th {
+  text-align: left;
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  border-bottom: .5px solid var(--color-border-tertiary);
+  white-space: nowrap;
+}
+.ltable td {
+  padding: 8px 10px;
+  border-bottom: .5px solid var(--color-border-tertiary);
+  vertical-align: top;
+}
+.fl { font-size: 13px; color: var(--color-text-secondary); display: block; margin-bottom: 12px; }
+.fl input, .fl textarea, .fl select { width: 100%; box-sizing: border-box; margin-top: 4px; }
+#toast {
+  display: none;
+  padding: 8px 14px;
+  border-radius: var(--border-radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 14px;
+  border: 0.5px solid transparent;
+}
+#toast.show { display: block; }
+</style>
+</head>
+<body>
+
+<!-- Site header -->
+<div id="site-header">
+  <div>
+    <p class="sub">RCM Studios</p>
+    <h1>Contractor card register</h1>
+  </div>
+  <div class="sync-bar">
+    <div class="sync-dot" id="sync-dot"></div>
+    <span class="sync-label" id="sync-label">—</span>
+    <button id="refresh-btn" onclick="doRefresh()" style="font-size:12px;padding:5px 10px;" title="Refresh from GitHub">
+      <i class="ti ti-refresh" style="vertical-align:-2px;font-size:13px;margin-right:3px;"></i>Refresh
+    </button>
+    <button onclick="localStorage.removeItem('rcm_owner');localStorage.removeItem('rcm_token');location.reload();"
+      style="font-size:12px;padding:5px 10px;color:var(--color-text-secondary);" title="Change token / log out">
+      <i class="ti ti-logout" style="vertical-align:-2px;font-size:13px;margin-right:3px;"></i>Reset token
+    </button>
+  </div>
+</div>
+
+<!-- Setup overlay -->
+<div id="setup-overlay">
+  <div class="setup-card">
+    <h2>Connect to GitHub</h2>
+    <p class="setup-sub">Enter your credentials to load and save card data.</p>
+    <div class="setup-steps">
+      <strong>First time? Create a token in 60 seconds:</strong>
+      <ol>
+        <li>Go to <strong>github.com → Settings → Developer settings → Personal access tokens → Fine-grained tokens</strong></li>
+        <li>Click <strong>Generate new token</strong></li>
+        <li>Name: <code>rcm-cards</code> &nbsp;·&nbsp; Expiry: 1 year</li>
+        <li>Under <strong>Repository access</strong> → select <strong>rcm-contractor-cards</strong></li>
+        <li>Under <strong>Permissions → Repository permissions</strong> → set <strong>Contents</strong> to <strong>Read and write</strong></li>
+        <li>Generate token and paste it below</li>
+      </ol>
+    </div>
+    <div id="setup-error"></div>
+    <div class="setup-field">
+      <label>GitHub username</label>
+      <input id="s-owner" placeholder="your-github-username" autocomplete="off" spellcheck="false" />
+    </div>
+    <div class="setup-field">
+      <label>Personal access token</label>
+      <input id="s-token" type="password" placeholder="github_pat_…" autocomplete="off" />
+    </div>
+    <button id="setup-connect" onclick="doSetup()">Connect</button>
+  </div>
+</div>
+
+<!-- Main app -->
+<div id="app">
+  <div id="toast"></div>
+
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+    <div>
+      <h2 style="font-size:20px;font-weight:500;color:var(--color-text-primary);margin:0;">Card status</h2>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:8px 14px;text-align:center;min-width:56px;">
+        <p style="font-size:20px;font-weight:500;color:var(--color-text-success);margin:0;" id="cnt-a">—</p>
+        <p style="font-size:10px;color:var(--color-text-secondary);margin:0;text-transform:uppercase;letter-spacing:.06em;">Available</p>
+      </div>
+      <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:8px 14px;text-align:center;min-width:56px;">
+        <p style="font-size:20px;font-weight:500;color:var(--color-text-warning);margin:0;" id="cnt-i">—</p>
+        <p style="font-size:10px;color:var(--color-text-secondary);margin:0;text-transform:uppercase;letter-spacing:.06em;">Issued</p>
+      </div>
+      <div style="background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:8px 14px;text-align:center;min-width:56px;">
+        <p style="font-size:20px;font-weight:500;color:var(--color-text-danger);margin:0;" id="cnt-o">—</p>
+        <p style="font-size:10px;color:var(--color-text-secondary);margin:0;text-transform:uppercase;letter-spacing:.06em;">Overdue</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="border-bottom:.5px solid var(--color-border-tertiary);margin-bottom:20px;display:flex;">
+    <button class="tab-btn active" id="tab-cards" onclick="switchTab('cards')">Card status</button>
+    <button class="tab-btn" id="tab-log" onclick="switchTab('log')">
+      Assignment log <span id="lcnt" style="background:var(--color-background-secondary);color:var(--color-text-secondary);border-radius:20px;padding:1px 7px;font-size:11px;margin-left:4px;display:none;"></span>
+    </button>
+  </div>
+
+  <div id="view-cards">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:12px;" id="cgrid"></div>
+    <div id="fpanel" class="fpanel" style="display:none;"></div>
+  </div>
+
+  <div id="view-log" style="display:none;">
+    <div style="display:flex;justify-content:flex-end;margin-bottom:12px;">
+      <button onclick="exportCSV()">
+        <i class="ti ti-download" aria-hidden="true" style="font-size:15px;vertical-align:-2px;margin-right:4px;"></i>Export CSV
+      </button>
+    </div>
+    <div style="overflow-x:auto;" id="lwrap"></div>
+  </div>
+</div>
+
+<script>
+// ── GitHub config ─────────────────────────────────────────────────────────
+const REPO      = 'rcm-contractor-cards';
+const FILE_PATH = 'data.json';
+let OWNER = localStorage.getItem('rcm_owner') || '';
+let TOKEN = localStorage.getItem('rcm_token') || '';
+let fileSha = null;
+
+function ghHeaders() {
+  return {
+    'Authorization': `Bearer ${TOKEN}`,
+    'Accept': 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+  };
+}
+
+// ── App state ─────────────────────────────────────────────────────────────
+const IDS   = ['01','02','03','04','05','06'];
+const STAFF = ['Danny Holland','Julia Tache','Anna Heath','Stephen Harrington','Andy Denyer'];
+let cards   = {};
+let log     = [];
+let sel     = null;
+let selAct  = null;
+
+// ── GitHub API: load ──────────────────────────────────────────────────────
+async function loadFromGitHub() {
+  setSyncState('saving', 'Loading…');
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`,
+      { headers: ghHeaders() }
+    );
+    if (res.status === 401) throw Object.assign(new Error('Unauthorised'), { code: 401 });
+    if (res.status === 404) throw Object.assign(new Error('File not found'), { code: 404 });
+    if (!res.ok)            throw new Error(`GitHub ${res.status}`);
+
+    const json = await res.json();
+    fileSha    = json.sha;
+    const data = JSON.parse(atob(json.content.replace(/\n/g, '')));
+    cards      = data.cards  || {};
+    log        = data.log    || [];
+
+    // Back-fill any missing card IDs
+    IDS.forEach(id => { if (!cards[id]) cards[id] = { status: 'available', assignment: null }; });
+
+    setSyncState('ok', 'Up to date · ' + fmtHHMM(new Date()));
+    return true;
+  } catch (e) {
+    setSyncState('error', 'Load failed');
+    console.error(e);
+    return false;
+  }
+}
+
+// ── GitHub API: save ──────────────────────────────────────────────────────
+async function save() {
+  if (!TOKEN || !OWNER) return;
+  setSyncState('saving', 'Saving…');
+
+  // If we somehow lost sha, re-fetch it
+  if (!fileSha) { await loadFromGitHub(); }
+
+  try {
+    const payload = { cards, log };
+    const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(payload, null, 2))));
+    const res = await fetch(
+      `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE_PATH}`,
+      {
+        method: 'PUT',
+        headers: { ...ghHeaders(), 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: `Card update ${new Date().toISOString()}`,
+          content: encoded,
+          sha: fileSha,
+        }),
+      }
+    );
+
+    if (res.status === 409) {
+      // Conflict — someone else wrote; reload then retry
+      showToast('Conflict detected — reloading latest data…', 'warn');
+      await loadFromGitHub();
+      return;
+    }
+    if (!res.ok) throw new Error(`GitHub ${res.status}`);
+
+    const json = await res.json();
+    fileSha = json.content.sha;
+    setSyncState('ok', 'Saved · ' + fmtHHMM(new Date()));
+  } catch (e) {
+    setSyncState('error', 'Save failed — please try again');
+    showToast('Save failed — please try again.', 'warn');
+    console.error(e);
+  }
+}
+
+// ── Sync indicator ────────────────────────────────────────────────────────
+function setSyncState(state, label) {
+  const dot = document.getElementById('sync-dot');
+  const lbl = document.getElementById('sync-label');
+  dot.className = 'sync-dot ' + (state === 'ok' ? 'ok' : state === 'saving' ? 'saving' : 'error');
+  lbl.textContent = label;
+}
+
+async function doRefresh() {
+  const ok = await loadFromGitHub();
+  if (ok) { renderCards(); updCounts(); renderLog(); }
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function fmt(v, wt) {
+  if (!v) return '—';
+  if (/^\d{4}-\d{2}-\d{2}$/.test(v)) {
+    const [y,m,d] = v.split('-');
+    return parseInt(d)+' '+['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(m)-1]+' '+y;
+  }
+  const dt = new Date(v); if (isNaN(dt)) return v;
+  const s = dt.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  return wt ? s+', '+dt.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}) : s;
+}
+
+function fmtHHMM(d) {
+  return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+}
+
+function isOD(c) {
+  if (c.status !== 'issued' || !c.assignment?.expectedReturn) return false;
+  return c.assignment.expectedReturn < new Date().toISOString().split('T')[0];
+}
+
+// ── Counts ────────────────────────────────────────────────────────────────
+function updCounts() {
+  const a = IDS.filter(id => cards[id]?.status === 'available').length;
+  const i = IDS.filter(id => cards[id]?.status === 'issued').length;
+  const o = IDS.filter(id => isOD(cards[id] || {})).length;
+  document.getElementById('cnt-a').textContent = a;
+  document.getElementById('cnt-i').textContent = i;
+  document.getElementById('cnt-o').textContent = o;
+  const lc = document.getElementById('lcnt');
+  if (log.length > 0) { lc.style.display = ''; lc.textContent = log.length; } else lc.style.display = 'none';
+}
+
+// ── Render: card grid ─────────────────────────────────────────────────────
+function renderCards() {
+  document.getElementById('cgrid').innerHTML = IDS.map(id => {
+    const c   = cards[id] || { status: 'available', assignment: null };
+    const od  = isOD(c);
+    const sc  = c.status === 'available' ? 'var(--color-text-success)'  : od ? 'var(--color-text-danger)'  : 'var(--color-text-warning)';
+    const sb  = c.status === 'available' ? 'var(--color-background-success)' : od ? 'var(--color-background-danger)' : 'var(--color-background-warning)';
+    const sl  = c.status === 'available' ? 'Available' : od ? 'Overdue' : 'Issued';
+
+    let body = '';
+    if (c.status === 'issued' && c.assignment) {
+      const a = c.assignment;
+      body = `<p style="font-size:12px;color:var(--color-text-secondary);margin:8px 0 2px;">Contractor</p>
+        <p style="font-size:13px;font-weight:500;margin:0 0 2px;color:var(--color-text-primary);">${esc(a.name)}</p>
+        ${a.company ? `<p style="font-size:12px;color:var(--color-text-secondary);margin:0 0 4px;">${esc(a.company)}</p>` : ''}
+        <p style="font-size:12px;color:${od?'var(--color-text-danger)':'var(--color-text-secondary)'};margin:0;">Return: ${fmt(a.expectedReturn)||'not set'}</p>`;
+    } else {
+      body = `<p style="font-size:12px;color:var(--color-text-secondary);margin:8px 0 0;">No active assignment</p>`;
+    }
+
+    return `<div class="c-tile${sel===id?' sel':''}" style="${sel===id?'border:1.5px solid var(--color-border-primary);':''}">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:6px;">
+        <i class="ti ti-credit-card" style="font-size:16px;color:${sc};" aria-hidden="true"></i>
+        <span style="font-family:var(--font-mono);font-size:14px;font-weight:500;color:var(--color-text-primary);">Card ${id}</span>
+      </div>
+      <span class="spill" style="background:${sb};color:${sc};">${sl}</span>
+      ${body}
+      <button style="margin-top:10px;width:100%;font-size:12px;" onclick="selCard('${id}')">
+        ${c.status==='available'?'Issue card':'Return card'}
+      </button>
+    </div>`;
+  }).join('');
+}
+
+// ── Card selection & forms ────────────────────────────────────────────────
+function selCard(id) {
+  if (sel === id) { sel = null; selAct = null; document.getElementById('fpanel').style.display = 'none'; }
+  else { sel = id; selAct = cards[id]?.status === 'available' ? 'issue' : 'return'; showForm(); }
+  renderCards();
+}
+
+function showForm() {
+  const p   = document.getElementById('fpanel'); p.style.display = 'block';
+  const today = new Date().toISOString().split('T')[0];
+  const sOpts = STAFF.map(s => `<option value="${esc(s)}">${esc(s)}</option>`).join('');
+
+  if (selAct === 'issue') {
+    p.innerHTML = `
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <h3 style="font-size:16px;font-weight:500;margin:0;color:var(--color-text-primary);">Issue card ${sel}</h3>
+        <button onclick="closePanel()" style="font-size:13px;color:var(--color-text-secondary);">Cancel</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <label class="fl">Contractor name *<input id="fn" type="text" placeholder="Full name" /></label>
+        <label class="fl">Company / organisation<input id="fco" type="text" placeholder="e.g. Team Audio" /></label>
+        <label class="fl">Contact phone<input id="fph" type="tel" placeholder="Mobile" /></label>
+        <label class="fl">Expected return<input id="fret" type="date" min="${today}" /></label>
+      </div>
+      <label class="fl">Issued by *<input id="fby" type="text" list="stfl" placeholder="Staff member" /><datalist id="stfl">${sOpts}</datalist></label>
+      <label class="fl">Notes<textarea id="fnt" placeholder="Access required, work area, job ref…" style="height:52px;resize:vertical;"></textarea></label>
+      <div style="display:flex;justify-content:flex-end;gap:8px;">
+        <button onclick="closePanel()">Cancel</button>
+        <button onclick="doIssue()" style="font-weight:500;">Issue card ${sel}</button>
+      </div>`;
+  } else {
+    const a = cards[sel]?.assignment || {};
+    p.innerHTML = `
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <h3 style="font-size:16px;font-weight:500;margin:0;color:var(--color-text-primary);">Return card ${sel}</h3>
+        <button onclick="closePanel()" style="font-size:13px;color:var(--color-text-secondary);">Cancel</button>
+      </div>
+      <div style="background:var(--color-background-primary);border:.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:12px 14px;margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px;">
+        <div><span style="color:var(--color-text-secondary);">Issued to</span><br><span style="font-weight:500;">${esc(a.name)}</span></div>
+        <div><span style="color:var(--color-text-secondary);">Company</span><br><span>${esc(a.company||'—')}</span></div>
+        <div><span style="color:var(--color-text-secondary);">Issued at</span><br><span>${fmt(a.issuedAt,true)}</span></div>
+        <div><span style="color:var(--color-text-secondary);">Issued by</span><br><span>${esc(a.issuedBy)}</span></div>
+      </div>
+      <label class="fl">Return notes (optional)<textarea id="frn" placeholder="Any comments on the return…" style="height:52px;resize:vertical;"></textarea></label>
+      <div style="display:flex;justify-content:flex-end;gap:8px;">
+        <button onclick="closePanel()">Cancel</button>
+        <button onclick="doReturn()" style="font-weight:500;">Confirm return</button>
+      </div>`;
+  }
+}
+
+function closePanel() {
+  sel = null; selAct = null;
+  document.getElementById('fpanel').style.display = 'none';
+  renderCards();
+}
+
+// ── Actions ───────────────────────────────────────────────────────────────
+async function doIssue() {
+  const name = (document.getElementById('fn').value||'').trim();
+  const by   = (document.getElementById('fby').value||'').trim();
+  if (!name || !by) { showToast('Please enter contractor name and issuing staff member.','warn'); return; }
+  const now = new Date().toISOString();
+  const lid = sel + '-' + Date.now();
+  const asgn = {
+    logId: lid, name,
+    company:  (document.getElementById('fco').value||'').trim(),
+    phone:    (document.getElementById('fph').value||'').trim(),
+    expectedReturn: document.getElementById('fret').value||'',
+    issuedBy: by,
+    notes:    (document.getElementById('fnt').value||'').trim(),
+    issuedAt: now,
+  };
+  cards[sel] = { status: 'issued', assignment: asgn };
+  log.unshift({ ...asgn, cardId: sel, returnedAt: null, returnNotes: null });
+  closePanel();
+  renderCards();
+  updCounts();
+  showToast('Card '+sel+' issued to '+name);
+  await save();
+}
+
+async function doReturn() {
+  const cid = sel;
+  const a   = cards[cid]?.assignment;
+  const now = new Date().toISOString();
+  const rn  = (document.getElementById('frn')?.value||'').trim();
+  cards[cid] = { status: 'available', assignment: null };
+  log = log.map(e => e.logId === a.logId ? { ...e, returnedAt: now, returnNotes: rn } : e);
+  closePanel();
+  renderCards();
+  updCounts();
+  showToast('Card '+cid+' marked as returned');
+  await save();
+}
+
+// ── Tabs ──────────────────────────────────────────────────────────────────
+function switchTab(v) {
+  document.getElementById('view-cards').style.display = v === 'cards' ? '' : 'none';
+  document.getElementById('view-log').style.display   = v === 'log'   ? '' : 'none';
+  document.getElementById('tab-cards').classList.toggle('active', v === 'cards');
+  document.getElementById('tab-log').classList.toggle('active',   v === 'log');
+  if (v === 'log') renderLog();
+}
+
+// ── Log ───────────────────────────────────────────────────────────────────
+function renderLog() {
+  const w = document.getElementById('lwrap');
+  if (!log.length) {
+    w.innerHTML = `<p style="color:var(--color-text-secondary);font-size:14px;text-align:center;padding:40px 0;">No assignments recorded yet. Issue a card to begin the register.</p>`;
+    return;
+  }
+  const rows = log.map(e => `<tr>
+    <td style="font-family:var(--font-mono);font-weight:500;">${esc(e.cardId)}</td>
+    <td>${esc(e.name)}</td>
+    <td>${esc(e.company||'—')}</td>
+    <td style="white-space:nowrap;">${fmt(e.issuedAt,true)}</td>
+    <td>${fmt(e.expectedReturn)}</td>
+    <td>${esc(e.issuedBy)}</td>
+    <td style="white-space:nowrap;">${e.returnedAt ? fmt(e.returnedAt,true) : '<span style="color:var(--color-text-warning);">Outstanding</span>'}</td>
+  </tr>`).join('');
+  w.innerHTML = `<table class="ltable"><thead><tr>
+    <th>Card</th><th>Contractor</th><th>Company</th><th>Issued</th><th>Return by</th><th>Issued by</th><th>Returned</th>
+  </tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+// ── CSV export ────────────────────────────────────────────────────────────
+function exportCSV() {
+  if (!log.length) { showToast('No log entries to export yet.','warn'); return; }
+  const hdr = ['Card','Contractor','Company','Phone','Issued at','Return by','Issued by','Notes','Returned at','Return notes'];
+  const rows = log.map(e => [
+    e.cardId, e.name, e.company||'', e.phone||'',
+    e.issuedAt ? new Date(e.issuedAt).toLocaleString('en-GB') : '',
+    e.expectedReturn||'', e.issuedBy, e.notes||'',
+    e.returnedAt ? new Date(e.returnedAt).toLocaleString('en-GB') : '',
+    e.returnNotes||''
+  ].map(v => `"${String(v).replace(/"/g,'""')}"`).join(','));
+  const a = document.createElement('a');
+  a.href     = 'data:text/csv;charset=utf-8,' + encodeURIComponent([hdr.join(','), ...rows].join('\n'));
+  a.download = 'rcm-contractor-cards-' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────
+let ttm;
+function showToast(msg, type) {
+  const t = document.getElementById('toast'); t.textContent = msg;
+  if (type === 'warn') {
+    t.style.background   = 'var(--color-background-warning)';
+    t.style.borderColor  = 'var(--color-border-warning)';
+    t.style.color        = 'var(--color-text-warning)';
+  } else {
+    t.style.background   = 'var(--color-background-success)';
+    t.style.borderColor  = 'var(--color-border-success)';
+    t.style.color        = 'var(--color-text-success)';
+  }
+  t.className = 'show';
+  clearTimeout(ttm);
+  ttm = setTimeout(() => t.className = '', 3500);
+}
+
+// ── Setup ─────────────────────────────────────────────────────────────────
+async function doSetup() {
+  const owner = document.getElementById('s-owner').value.trim();
+  const token = document.getElementById('s-token').value.trim();
+  const errEl = document.getElementById('setup-error');
+  const btn   = document.getElementById('setup-connect');
+
+  errEl.style.display = 'none'; errEl.textContent = '';
+  if (!owner || !token) {
+    errEl.textContent = 'Please enter both your GitHub username and access token.';
+    errEl.style.display = 'block'; return;
+  }
+
+  btn.disabled = true; btn.textContent = 'Connecting…';
+
+  try {
+    const res = await fetch(
+      `https://api.github.com/repos/${owner}/${REPO}/contents/${FILE_PATH}`,
+      { headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github+json' } }
+    );
+    if (res.status === 401) throw new Error('Invalid token — please check and try again.');
+    if (res.status === 404) throw new Error(`Repository "${REPO}" or data.json not found. Make sure the repo exists.`);
+    if (!res.ok)            throw new Error(`GitHub error ${res.status}. Check your username is correct.`);
+  } catch (e) {
+    errEl.textContent   = e.message;
+    errEl.style.display = 'block';
+    btn.disabled        = false;
+    btn.textContent     = 'Connect';
+    return;
+  }
+
+  localStorage.setItem('rcm_owner', owner);
+  localStorage.setItem('rcm_token', token);
+  OWNER = owner; TOKEN = token;
+  btn.disabled = false; btn.textContent = 'Connect';
+  startApp();
+}
+
+// ── Boot ──────────────────────────────────────────────────────────────────
+async function startApp() {
+  document.getElementById('setup-overlay').classList.remove('show');
+  document.getElementById('app').style.display = 'block';
+  const ok = await loadFromGitHub();
+  if (ok) { renderCards(); updCounts(); }
+
+  // Auto-refresh every 60 s when tab is visible
+  setInterval(() => {
+    if (!document.hidden) loadFromGitHub().then(() => { renderCards(); updCounts(); });
+  }, 60000);
+}
+
+if (OWNER && TOKEN) {
+  startApp();
+} else {
+  document.getElementById('setup-overlay').classList.add('show');
+}
+</script>
+</body>
+</html>
