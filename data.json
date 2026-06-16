@@ -1,11 +1,52 @@
 {
-    "cards": {
-          "01": { "status": "available", "assignment": null },
-          "02": { "status": "available", "assignment": null },
-          "03": { "status": "available", "assignment": null },
-          "04": { "status": "available", "assignment": null },
-          "05": { "status": "available", "assignment": null },
-          "06": { "status": "available", "assignment": null }
+  "cards": {
+    "01": {
+      "status": "issued",
+      "assignment": {
+        "logId": "01-1781642237527",
+        "name": "Test Contractor",
+        "company": "",
+        "phone": "",
+        "expectedReturn": "",
+        "issuedBy": "Danny Holland",
+        "notes": "",
+        "issuedAt": "2026-06-16T20:37:17.527Z"
+      }
     },
-    "log": []
+    "02": {
+      "status": "available",
+      "assignment": null
+    },
+    "03": {
+      "status": "available",
+      "assignment": null
+    },
+    "04": {
+      "status": "available",
+      "assignment": null
+    },
+    "05": {
+      "status": "available",
+      "assignment": null
+    },
+    "06": {
+      "status": "available",
+      "assignment": null
+    }
+  },
+  "log": [
+    {
+      "logId": "01-1781642237527",
+      "name": "Test Contractor",
+      "company": "",
+      "phone": "",
+      "expectedReturn": "",
+      "issuedBy": "Danny Holland",
+      "notes": "",
+      "issuedAt": "2026-06-16T20:37:17.527Z",
+      "cardId": "01",
+      "returnedAt": null,
+      "returnNotes": null
+    }
+  ]
 }
