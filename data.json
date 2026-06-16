@@ -1,8 +1,17 @@
 {
   "cards": {
     "01": {
-      "status": "available",
-      "assignment": null
+      "status": "issued",
+      "assignment": {
+        "logId": "01-1781642425915",
+        "name": "Danny",
+        "company": "",
+        "phone": "",
+        "expectedReturn": "",
+        "issuedBy": "Danny",
+        "notes": "",
+        "issuedAt": "2026-06-16T20:40:25.915Z"
+      }
     },
     "02": {
       "status": "available",
@@ -26,6 +35,19 @@
     }
   },
   "log": [
+    {
+      "logId": "01-1781642425915",
+      "name": "Danny",
+      "company": "",
+      "phone": "",
+      "expectedReturn": "",
+      "issuedBy": "Danny",
+      "notes": "",
+      "issuedAt": "2026-06-16T20:40:25.915Z",
+      "cardId": "01",
+      "returnedAt": null,
+      "returnNotes": null
+    },
     {
       "logId": "01-1781642237527",
       "name": "Test Contractor",
