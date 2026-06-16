@@ -1,17 +1,8 @@
 {
   "cards": {
     "01": {
-      "status": "issued",
-      "assignment": {
-        "logId": "01-1781642237527",
-        "name": "Test Contractor",
-        "company": "",
-        "phone": "",
-        "expectedReturn": "",
-        "issuedBy": "Danny Holland",
-        "notes": "",
-        "issuedAt": "2026-06-16T20:37:17.527Z"
-      }
+      "status": "available",
+      "assignment": null
     },
     "02": {
       "status": "available",
@@ -45,8 +36,8 @@
       "notes": "",
       "issuedAt": "2026-06-16T20:37:17.527Z",
       "cardId": "01",
-      "returnedAt": null,
-      "returnNotes": null
+      "returnedAt": "2026-06-16T20:37:39.585Z",
+      "returnNotes": ""
     }
   ]
 }
