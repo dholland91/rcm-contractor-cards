@@ -1,8 +1,17 @@
 {
   "cards": {
     "01": {
-      "status": "available",
-      "assignment": null
+      "status": "issued",
+      "assignment": {
+        "logId": "01-1781775108507",
+        "name": "Tom Mungall",
+        "company": "",
+        "phone": "",
+        "expectedReturn": "2026-06-19",
+        "issuedBy": "Danny Holland",
+        "notes": "",
+        "issuedAt": "2026-06-18T09:31:48.506Z"
+      }
     },
     "02": {
       "status": "available",
@@ -26,6 +35,19 @@
     }
   },
   "log": [
+    {
+      "logId": "01-1781775108507",
+      "name": "Tom Mungall",
+      "company": "",
+      "phone": "",
+      "expectedReturn": "2026-06-19",
+      "issuedBy": "Danny Holland",
+      "notes": "",
+      "issuedAt": "2026-06-18T09:31:48.506Z",
+      "cardId": "01",
+      "returnedAt": null,
+      "returnNotes": null
+    },
     {
       "logId": "01-1781642425915",
       "name": "Danny",
