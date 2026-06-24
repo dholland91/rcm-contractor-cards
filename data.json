@@ -5,8 +5,17 @@
       "assignment": null
     },
     "02": {
-      "status": "available",
-      "assignment": null
+      "status": "issued",
+      "assignment": {
+        "logId": "02-1782296780890",
+        "name": "Alison",
+        "company": "",
+        "phone": "",
+        "expectedReturn": "",
+        "issuedBy": "Joel",
+        "notes": "",
+        "issuedAt": "2026-06-24T10:26:20.890Z"
+      }
     },
     "03": {
       "status": "available",
@@ -26,6 +35,19 @@
     }
   },
   "log": [
+    {
+      "logId": "02-1782296780890",
+      "name": "Alison",
+      "company": "",
+      "phone": "",
+      "expectedReturn": "",
+      "issuedBy": "Joel",
+      "notes": "",
+      "issuedAt": "2026-06-24T10:26:20.890Z",
+      "cardId": "02",
+      "returnedAt": null,
+      "returnNotes": null
+    },
     {
       "logId": "01-1781775108507",
       "name": "Tom Mungall",
