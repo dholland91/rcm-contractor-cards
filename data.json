@@ -5,8 +5,17 @@
       "assignment": null
     },
     "02": {
-      "status": "available",
-      "assignment": null
+      "status": "issued",
+      "assignment": {
+        "logId": "02-1782485556595",
+        "name": "Andy",
+        "company": "",
+        "phone": "",
+        "expectedReturn": "2026-06-29",
+        "issuedBy": "Julia Tache",
+        "notes": "",
+        "issuedAt": "2026-06-26T14:52:36.595Z"
+      }
     },
     "03": {
       "status": "available",
@@ -26,6 +35,19 @@
     }
   },
   "log": [
+    {
+      "logId": "02-1782485556595",
+      "name": "Andy",
+      "company": "",
+      "phone": "",
+      "expectedReturn": "2026-06-29",
+      "issuedBy": "Julia Tache",
+      "notes": "",
+      "issuedAt": "2026-06-26T14:52:36.595Z",
+      "cardId": "02",
+      "returnedAt": null,
+      "returnNotes": null
+    },
     {
       "logId": "02-1782296780890",
       "name": "Alison",
