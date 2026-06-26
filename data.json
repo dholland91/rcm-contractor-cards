@@ -5,17 +5,8 @@
       "assignment": null
     },
     "02": {
-      "status": "issued",
-      "assignment": {
-        "logId": "02-1782296780890",
-        "name": "Alison",
-        "company": "",
-        "phone": "",
-        "expectedReturn": "",
-        "issuedBy": "Joel",
-        "notes": "",
-        "issuedAt": "2026-06-24T10:26:20.890Z"
-      }
+      "status": "available",
+      "assignment": null
     },
     "03": {
       "status": "available",
@@ -45,8 +36,8 @@
       "notes": "",
       "issuedAt": "2026-06-24T10:26:20.890Z",
       "cardId": "02",
-      "returnedAt": null,
-      "returnNotes": null
+      "returnedAt": "2026-06-26T14:52:11.239Z",
+      "returnNotes": ""
     },
     {
       "logId": "01-1781775108507",
