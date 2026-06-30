@@ -1,8 +1,17 @@
 {
   "cards": {
     "01": {
-      "status": "available",
-      "assignment": null
+      "status": "issued",
+      "assignment": {
+        "logId": "01-1782822776643",
+        "name": "Ed Gill",
+        "company": "",
+        "phone": "",
+        "expectedReturn": "2026-06-30",
+        "issuedBy": "Joel",
+        "notes": "",
+        "issuedAt": "2026-06-30T12:32:56.643Z"
+      }
     },
     "02": {
       "status": "issued",
@@ -35,6 +44,19 @@
     }
   },
   "log": [
+    {
+      "logId": "01-1782822776643",
+      "name": "Ed Gill",
+      "company": "",
+      "phone": "",
+      "expectedReturn": "2026-06-30",
+      "issuedBy": "Joel",
+      "notes": "",
+      "issuedAt": "2026-06-30T12:32:56.643Z",
+      "cardId": "01",
+      "returnedAt": null,
+      "returnNotes": null
+    },
     {
       "logId": "02-1782485556595",
       "name": "Andy",
