@@ -35,8 +35,17 @@
       "assignment": null
     },
     "05": {
-      "status": "available",
-      "assignment": null
+      "status": "issued",
+      "assignment": {
+        "logId": "05-1782903514041",
+        "name": "Peter IMZ",
+        "company": "",
+        "phone": "",
+        "expectedReturn": "",
+        "issuedBy": "Danny",
+        "notes": "",
+        "issuedAt": "2026-07-01T10:58:34.041Z"
+      }
     },
     "06": {
       "status": "issued",
@@ -53,6 +62,19 @@
     }
   },
   "log": [
+    {
+      "logId": "05-1782903514041",
+      "name": "Peter IMZ",
+      "company": "",
+      "phone": "",
+      "expectedReturn": "",
+      "issuedBy": "Danny",
+      "notes": "",
+      "issuedAt": "2026-07-01T10:58:34.041Z",
+      "cardId": "05",
+      "returnedAt": null,
+      "returnNotes": null
+    },
     {
       "logId": "06-1782903488987",
       "name": "Leonie IMZ",
