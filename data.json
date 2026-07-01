@@ -39,11 +39,33 @@
       "assignment": null
     },
     "06": {
-      "status": "available",
-      "assignment": null
+      "status": "issued",
+      "assignment": {
+        "logId": "06-1782903488987",
+        "name": "Leonie IMZ",
+        "company": "",
+        "phone": "",
+        "expectedReturn": "",
+        "issuedBy": "Danny",
+        "notes": "",
+        "issuedAt": "2026-07-01T10:58:08.987Z"
+      }
     }
   },
   "log": [
+    {
+      "logId": "06-1782903488987",
+      "name": "Leonie IMZ",
+      "company": "",
+      "phone": "",
+      "expectedReturn": "",
+      "issuedBy": "Danny",
+      "notes": "",
+      "issuedAt": "2026-07-01T10:58:08.987Z",
+      "cardId": "06",
+      "returnedAt": null,
+      "returnNotes": null
+    },
     {
       "logId": "01-1782822776643",
       "name": "Ed Gill",
