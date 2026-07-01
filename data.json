@@ -1,8 +1,17 @@
 {
   "cards": {
     "01": {
-      "status": "available",
-      "assignment": null
+      "status": "issued",
+      "assignment": {
+        "logId": "01-1782903623955",
+        "name": "Julia temp",
+        "company": "",
+        "phone": "",
+        "expectedReturn": "",
+        "issuedBy": "Danny",
+        "notes": "",
+        "issuedAt": "2026-07-01T11:00:23.955Z"
+      }
     },
     "02": {
       "status": "issued",
@@ -53,6 +62,19 @@
     }
   },
   "log": [
+    {
+      "logId": "01-1782903623955",
+      "name": "Julia temp",
+      "company": "",
+      "phone": "",
+      "expectedReturn": "",
+      "issuedBy": "Danny",
+      "notes": "",
+      "issuedAt": "2026-07-01T11:00:23.955Z",
+      "cardId": "01",
+      "returnedAt": null,
+      "returnNotes": null
+    },
     {
       "logId": "05-1782903514041",
       "name": "Peter IMZ",
