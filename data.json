@@ -1,17 +1,8 @@
 {
   "cards": {
     "01": {
-      "status": "issued",
-      "assignment": {
-        "logId": "01-1782903623955",
-        "name": "Julia temp",
-        "company": "",
-        "phone": "",
-        "expectedReturn": "",
-        "issuedBy": "Danny",
-        "notes": "",
-        "issuedAt": "2026-07-01T11:00:23.955Z"
-      }
+      "status": "available",
+      "assignment": null
     },
     "02": {
       "status": "issued",
@@ -94,8 +85,8 @@
       "notes": "",
       "issuedAt": "2026-07-01T11:00:23.955Z",
       "cardId": "01",
-      "returnedAt": null,
-      "returnNotes": null
+      "returnedAt": "2026-07-02T12:08:43.495Z",
+      "returnNotes": ""
     },
     {
       "logId": "05-1782903514041",
