@@ -1,8 +1,17 @@
 {
   "cards": {
     "01": {
-      "status": "available",
-      "assignment": null
+      "status": "issued",
+      "assignment": {
+        "logId": "01-1782994150572",
+        "name": "Mike Hatch",
+        "company": "Floating Earth",
+        "phone": "",
+        "expectedReturn": "2026-07-05",
+        "issuedBy": "Richard Bland",
+        "notes": "",
+        "issuedAt": "2026-07-02T12:09:10.572Z"
+      }
     },
     "02": {
       "status": "issued",
@@ -62,6 +71,19 @@
     }
   },
   "log": [
+    {
+      "logId": "01-1782994150572",
+      "name": "Mike Hatch",
+      "company": "Floating Earth",
+      "phone": "",
+      "expectedReturn": "2026-07-05",
+      "issuedBy": "Richard Bland",
+      "notes": "",
+      "issuedAt": "2026-07-02T12:09:10.572Z",
+      "cardId": "01",
+      "returnedAt": null,
+      "returnNotes": null
+    },
     {
       "logId": "04-1782993836384",
       "name": "Yvonne IMZ",
