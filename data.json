@@ -31,8 +31,17 @@
       "assignment": null
     },
     "04": {
-      "status": "available",
-      "assignment": null
+      "status": "issued",
+      "assignment": {
+        "logId": "04-1782993836384",
+        "name": "Yvonne IMZ",
+        "company": "",
+        "phone": "",
+        "expectedReturn": "",
+        "issuedBy": "Danny",
+        "notes": "",
+        "issuedAt": "2026-07-02T12:03:56.384Z"
+      }
     },
     "05": {
       "status": "issued",
@@ -62,6 +71,19 @@
     }
   },
   "log": [
+    {
+      "logId": "04-1782993836384",
+      "name": "Yvonne IMZ",
+      "company": "",
+      "phone": "",
+      "expectedReturn": "",
+      "issuedBy": "Danny",
+      "notes": "",
+      "issuedAt": "2026-07-02T12:03:56.384Z",
+      "cardId": "04",
+      "returnedAt": null,
+      "returnNotes": null
+    },
     {
       "logId": "01-1782903623955",
       "name": "Julia temp",
