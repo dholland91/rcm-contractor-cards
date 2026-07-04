@@ -14,8 +14,17 @@
       }
     },
     "02": {
-      "status": "available",
-      "assignment": null
+      "status": "issued",
+      "assignment": {
+        "logId": "02-1783176878541",
+        "name": "Alison",
+        "company": "",
+        "phone": "",
+        "expectedReturn": "",
+        "issuedBy": "Danny",
+        "notes": "",
+        "issuedAt": "2026-07-04T14:54:38.541Z"
+      }
     },
     "03": {
       "status": "available",
@@ -62,6 +71,19 @@
     }
   },
   "log": [
+    {
+      "logId": "02-1783176878541",
+      "name": "Alison",
+      "company": "",
+      "phone": "",
+      "expectedReturn": "",
+      "issuedBy": "Danny",
+      "notes": "",
+      "issuedAt": "2026-07-04T14:54:38.541Z",
+      "cardId": "02",
+      "returnedAt": null,
+      "returnNotes": null
+    },
     {
       "logId": "01-1782994150572",
       "name": "Mike Hatch",
