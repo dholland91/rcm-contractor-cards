@@ -14,17 +14,8 @@
       }
     },
     "02": {
-      "status": "issued",
-      "assignment": {
-        "logId": "02-1782485556595",
-        "name": "Andy",
-        "company": "",
-        "phone": "",
-        "expectedReturn": "2026-06-29",
-        "issuedBy": "Julia Tache",
-        "notes": "",
-        "issuedAt": "2026-06-26T14:52:36.595Z"
-      }
+      "status": "available",
+      "assignment": null
     },
     "03": {
       "status": "available",
@@ -159,8 +150,8 @@
       "notes": "",
       "issuedAt": "2026-06-26T14:52:36.595Z",
       "cardId": "02",
-      "returnedAt": null,
-      "returnNotes": null
+      "returnedAt": "2026-07-04T14:36:35.731Z",
+      "returnNotes": ""
     },
     {
       "logId": "02-1782296780890",
