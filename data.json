@@ -1,17 +1,8 @@
 {
   "cards": {
     "01": {
-      "status": "issued",
-      "assignment": {
-        "logId": "01-1782994150572",
-        "name": "Mike Hatch",
-        "company": "Floating Earth",
-        "phone": "",
-        "expectedReturn": "2026-07-05",
-        "issuedBy": "Richard Bland",
-        "notes": "",
-        "issuedAt": "2026-07-02T12:09:10.572Z"
-      }
+      "status": "available",
+      "assignment": null
     },
     "02": {
       "status": "issued",
@@ -94,8 +85,8 @@
       "notes": "",
       "issuedAt": "2026-07-02T12:09:10.572Z",
       "cardId": "01",
-      "returnedAt": null,
-      "returnNotes": null
+      "returnedAt": "2026-07-04T21:07:52.005Z",
+      "returnNotes": ""
     },
     {
       "logId": "04-1782993836384",
