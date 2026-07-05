@@ -21,17 +21,8 @@
       "assignment": null
     },
     "06": {
-      "status": "issued",
-      "assignment": {
-        "logId": "06-1782903488987",
-        "name": "Leonie IMZ",
-        "company": "",
-        "phone": "",
-        "expectedReturn": "",
-        "issuedBy": "Danny",
-        "notes": "",
-        "issuedAt": "2026-07-01T10:58:08.987Z"
-      }
+      "status": "available",
+      "assignment": null
     }
   },
   "log": [
@@ -110,8 +101,8 @@
       "notes": "",
       "issuedAt": "2026-07-01T10:58:08.987Z",
       "cardId": "06",
-      "returnedAt": null,
-      "returnNotes": null
+      "returnedAt": "2026-07-05T12:28:49.901Z",
+      "returnNotes": ""
     },
     {
       "logId": "01-1782822776643",
