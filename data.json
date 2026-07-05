@@ -17,17 +17,8 @@
       "assignment": null
     },
     "05": {
-      "status": "issued",
-      "assignment": {
-        "logId": "05-1782903514041",
-        "name": "Peter IMZ",
-        "company": "",
-        "phone": "",
-        "expectedReturn": "",
-        "issuedBy": "Danny",
-        "notes": "",
-        "issuedAt": "2026-07-01T10:58:34.041Z"
-      }
+      "status": "available",
+      "assignment": null
     },
     "06": {
       "status": "issued",
@@ -106,8 +97,8 @@
       "notes": "",
       "issuedAt": "2026-07-01T10:58:34.041Z",
       "cardId": "05",
-      "returnedAt": null,
-      "returnNotes": null
+      "returnedAt": "2026-07-05T12:28:45.688Z",
+      "returnNotes": ""
     },
     {
       "logId": "06-1782903488987",
