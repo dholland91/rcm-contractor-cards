@@ -1,17 +1,8 @@
 {
   "cards": {
     "01": {
-      "status": "issued",
-      "assignment": {
-        "logId": "01-1783940115944",
-        "name": "Oli",
-        "company": "Hhb",
-        "phone": "",
-        "expectedReturn": "2026-07-14",
-        "issuedBy": "Joel",
-        "notes": "",
-        "issuedAt": "2026-07-13T10:55:15.944Z"
-      }
+      "status": "available",
+      "assignment": null
     },
     "02": {
       "status": "available",
@@ -45,8 +36,8 @@
       "notes": "",
       "issuedAt": "2026-07-13T10:55:15.944Z",
       "cardId": "01",
-      "returnedAt": null,
-      "returnNotes": null
+      "returnedAt": "2026-07-13T16:27:30.668Z",
+      "returnNotes": ""
     },
     {
       "logId": "02-1783176878541",
