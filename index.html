@@ -287,18 +287,28 @@ let fileSha = null;
 
 // ── GitHub API helpers ────────────────────────────────────────────────────
 function readHeaders() {
-  // Reads are unauthenticated on a public repo
-  return { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
+  // Unauthenticated reads on a public repo are capped at 60 req/hr per IP —
+  // easy to blow through with 60s auto-refresh across a few staff tabs.
+  // Use the token (5,000 req/hr) whenever it's available, even for reads.
+  const h = { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28' };
+  if (canWrite) h['Authorization'] = `Bearer ${WRITE_TOKEN}`;
+  return h;
 }
 function writeHeaders() {
-  return { ...readHeaders(), 'Authorization': `Bearer ${WRITE_TOKEN}`, 'Content-Type': 'application/json' };
+  return { ...readHeaders(), 'Content-Type': 'application/json' };
 }
 
 async function loadFromGitHub() {
   setSyncState('saving', 'Loading…');
   try {
     const res = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE}`, { headers: readHeaders() });
-    if (!res.ok) throw new Error(`GitHub ${res.status}`);
+    if (!res.ok) {
+      if (res.status === 403 || res.status === 429) {
+        const remaining = res.headers.get('x-ratelimit-remaining');
+        throw new Error(`GitHub ${res.status} — rate limited (remaining: ${remaining})`);
+      }
+      throw new Error(`GitHub ${res.status}`);
+    }
     const json = await res.json();
     fileSha = json.sha;
     const data = JSON.parse(atob(json.content.replace(/\n/g, '')));
@@ -308,7 +318,7 @@ async function loadFromGitHub() {
     setSyncState('ok', 'Up to date · ' + fmtHHMM(new Date()));
     return true;
   } catch (e) {
-    setSyncState('error', 'Load failed');
+    setSyncState('error', /rate limited/.test(e.message) ? 'Rate limited — retrying shortly' : 'Load failed');
     console.error(e);
     return false;
   }
@@ -480,7 +490,8 @@ async function doIssue() {
   if (!name||!by) { showToast('Please enter contractor name and issuing staff member.','warn'); return; }
   const btn = document.getElementById('issue-btn');
   btn.disabled = true; btn.textContent = 'Saving…';
-  const now = new Date().toISOString(); const lid = sel+'-'+Date.now();
+  const cid = sel;
+  const now = new Date().toISOString(); const lid = cid+'-'+Date.now();
   const asgn = {
     logId:lid, name,
     company:(document.getElementById('fco').value||'').trim(),
@@ -488,11 +499,11 @@ async function doIssue() {
     expectedReturn:document.getElementById('fret').value||'',
     issuedBy:by, notes:(document.getElementById('fnt').value||'').trim(), issuedAt:now
   };
-  cards[sel] = { status:'issued', assignment:asgn };
-  log.unshift({ ...asgn, cardId:sel, returnedAt:null, returnNotes:null });
+  cards[cid] = { status:'issued', assignment:asgn };
+  log.unshift({ ...asgn, cardId:cid, returnedAt:null, returnNotes:null });
   await save();
   closePanel(); renderCards(); updCounts();
-  showToast('Card '+sel+' issued to '+name);
+  showToast('Card '+cid+' issued to '+name);
 }
 
 async function doReturn() {
