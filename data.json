@@ -1,17 +1,8 @@
 {
   "cards": {
     "01": {
-      "status": "issued",
-      "assignment": {
-        "logId": "01-1788514378196",
-        "name": "Health Check",
-        "company": "",
-        "phone": "",
-        "expectedReturn": "",
-        "issuedBy": "Danny Holland",
-        "notes": "",
-        "issuedAt": "2026-09-04T09:32:58.196Z"
-      }
+      "status": "available",
+      "assignment": null
     },
     "02": {
       "status": "available",
@@ -45,8 +36,8 @@
       "notes": "",
       "issuedAt": "2026-09-04T09:32:58.196Z",
       "cardId": "01",
-      "returnedAt": null,
-      "returnNotes": null
+      "returnedAt": "2026-09-04T09:34:19.664Z",
+      "returnNotes": ""
     },
     {
       "logId": "01-1783940115944",
