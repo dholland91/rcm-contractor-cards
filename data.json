@@ -17,8 +17,17 @@
       "assignment": null
     },
     "05": {
-      "status": "available",
-      "assignment": null
+      "status": "issued",
+      "assignment": {
+        "logId": "05-1790844591399",
+        "name": "Richard bland",
+        "company": "",
+        "phone": "",
+        "expectedReturn": "",
+        "issuedBy": "Danny Holland",
+        "notes": "",
+        "issuedAt": "2026-10-01T08:49:51.399Z"
+      }
     },
     "06": {
       "status": "available",
@@ -26,6 +35,19 @@
     }
   },
   "log": [
+    {
+      "logId": "05-1790844591399",
+      "name": "Richard bland",
+      "company": "",
+      "phone": "",
+      "expectedReturn": "",
+      "issuedBy": "Danny Holland",
+      "notes": "",
+      "issuedAt": "2026-10-01T08:49:51.399Z",
+      "cardId": "05",
+      "returnedAt": null,
+      "returnNotes": null
+    },
     {
       "logId": "01-1788514730298",
       "name": "Verify Fix",
