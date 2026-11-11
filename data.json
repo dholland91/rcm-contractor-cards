@@ -9,17 +9,8 @@
       "assignment": null
     },
     "03": {
-      "status": "issued",
-      "assignment": {
-        "logId": "03-1794218502742",
-        "name": "Reece",
-        "company": "",
-        "phone": "",
-        "expectedReturn": "2026-11-10",
-        "issuedBy": "Danny",
-        "notes": "",
-        "issuedAt": "2026-11-09T10:01:42.742Z"
-      }
+      "status": "available",
+      "assignment": null
     },
     "04": {
       "status": "available",
@@ -54,8 +45,8 @@
       "notes": "",
       "issuedAt": "2026-11-09T10:01:42.742Z",
       "cardId": "03",
-      "returnedAt": null,
-      "returnNotes": null
+      "returnedAt": "2026-11-11T17:10:20.205Z",
+      "returnNotes": ""
     },
     {
       "logId": "05-1790844591399",
