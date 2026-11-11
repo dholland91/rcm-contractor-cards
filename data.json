@@ -30,11 +30,33 @@
       }
     },
     "06": {
-      "status": "available",
-      "assignment": null
+      "status": "issued",
+      "assignment": {
+        "logId": "06-1794417104397",
+        "name": "I am missing",
+        "company": "",
+        "phone": "",
+        "expectedReturn": "2026-11-11",
+        "issuedBy": "Reece",
+        "notes": "",
+        "issuedAt": "2026-11-11T17:11:44.397Z"
+      }
     }
   },
   "log": [
+    {
+      "logId": "06-1794417104397",
+      "name": "I am missing",
+      "company": "",
+      "phone": "",
+      "expectedReturn": "2026-11-11",
+      "issuedBy": "Reece",
+      "notes": "",
+      "issuedAt": "2026-11-11T17:11:44.397Z",
+      "cardId": "06",
+      "returnedAt": null,
+      "returnNotes": null
+    },
     {
       "logId": "03-1794218502742",
       "name": "Reece",
